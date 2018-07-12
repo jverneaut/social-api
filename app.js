@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import session from 'express-session';
 
+import authRoutes from './routes/auth';
 import usersRoutes from './routes/users';
 
 const app = express();
@@ -16,6 +17,7 @@ app.use(session({
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use(authRoutes);
 app.use(usersRoutes);
 
 export default app;
