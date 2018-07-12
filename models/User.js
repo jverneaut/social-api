@@ -40,4 +40,13 @@ userSchema.pre('save', async function (next) {
   }
 });
 
+// eslint-disable-next-line
+userSchema.methods.comparePassword = async function (password) {
+  try {
+    return await bcrypt.compare(password, this.password);
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
 export default mongoose.model('User', userSchema);
