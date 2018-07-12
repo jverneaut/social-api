@@ -8,7 +8,11 @@ import usersRoutes from './routes/users';
 const app = express();
 
 app.use(morgan('dev'));
-app.use(session({ secret: 'work hard', saveUninitialized: false }));
+app.use(session({
+  secret: 'work hard',
+  saveUninitialized: false,
+  resave: true,
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
