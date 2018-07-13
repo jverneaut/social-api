@@ -5,6 +5,8 @@ import postsControllers from '../controllers/posts';
 
 const Router = express.Router();
 
-Router.get('/posts', requireLogin, postsControllers.findAll);
+Router.route('/posts')
+  .get(requireLogin, postsControllers.findAll)
+  .post(requireLogin, postsControllers.createOne);
 
 export default Router;
