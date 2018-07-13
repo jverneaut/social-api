@@ -16,6 +16,7 @@ const app = express();
 app.use(morgan('dev'));
 app.use(session({
   secret: 'work hard',
+  name: 'sessionId',
   saveUninitialized: false,
   resave: true,
   store: new MongoStore({ url: process.env.MONGO_URI }),
