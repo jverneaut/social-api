@@ -18,7 +18,7 @@ const app = express();
 
 app.use(morgan('dev'));
 app.use(session({
-  secret: 'work hard',
+  secret: process.env.SESSION_SECRET,
   name: 'sessionId',
   saveUninitialized: false,
   resave: true,
