@@ -17,7 +17,7 @@ exports.login = async (req, res, next) => {
     const err = new Error('Invalid email or password');
     err.status = 400;
     res.send(err);
-    next(err);
+    return next(err);
   }
 
   req.session.userId = user._id;
