@@ -3,7 +3,7 @@ import User from '../models/User';
 
 exports.findAll = async (req, res) => {
   const posts = await Post.find();
-  res.json(posts);
+  return res.json(posts);
 };
 
 exports.createOne = async (req, res) => {
@@ -15,5 +15,5 @@ exports.createOne = async (req, res) => {
   });
   await User.findByIdAndUpdate(userId, { $push: { posts: newPost } });
   await newPost.save();
-  res.status(201).redirect('/posts');
+  return res.status(201).redirect('/posts');
 };

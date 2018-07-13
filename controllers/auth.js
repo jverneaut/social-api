@@ -5,7 +5,7 @@ exports.signup = async (req, res) => {
   const newUser = new User({ email, password });
   await newUser.save();
   req.session.userId = newUser._id;
-  res.json(newUser);
+  return res.json(newUser);
 };
 
 exports.login = async (req, res, next) => {
@@ -21,18 +21,17 @@ exports.login = async (req, res, next) => {
   }
 
   req.session.userId = user._id;
-  res.json(user);
+  return res.json(user);
 };
 
 exports.logout = (req, res, next) => {
   if (req.session.userId) {
-    req.session.destroy((err) => {
+    return req.session.destroy((err) => {
       if (err) {
         return next(err);
       }
       return res.status(301).send('Logged out');
     });
-  } else {
-    res.status(200).send('Aleady logged out');
   }
+  return res.status(200).send('Aleady logged out');
 };
