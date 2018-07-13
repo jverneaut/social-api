@@ -1,12 +1,18 @@
+import Boom from 'boom';
+
 import User from '../models/User';
 
-exports.getCurrentUser = async (req, res) => {
+import asyncHandler from '../middlewares/asyncHandler';
+
+exports.getCurrentUser = asyncHandler(async (req, res, next) => {
   const { userId } = req.session;
   const user = await User.findById(userId);
-  return res.status(200).json(user);
-};
+  if (!user) return next(Boom.unauthorized('user not found'));
 
-exports.findAll = async (req, res) => {
+  return res.status(200).json(user);
+});
+
+exports.findAll = asyncHandler(async (req, res) => {
   const users = await User.find();
   return res.json(users);
-};
+});

@@ -1,8 +1,6 @@
+import Boom from 'boom';
+
 export default (req, res, next) => {
-  if (!req.session.userId) {
-    return res.status(401).json({
-      error: 'Login required',
-    });
-  }
+  if (!req.session.userId) return next(Boom.unauthorized('login required'));
   return next();
 };

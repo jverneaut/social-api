@@ -7,6 +7,9 @@ import authRoutes from './routes/auth';
 import postsRoutes from './routes/posts';
 import usersRoutes from './routes/users';
 
+import notFound from './middlewares/notFound';
+import errorHandler from './middlewares/errorHandler';
+
 require('dotenv').config();
 
 const MongoStore = require('connect-mongo')(session);
@@ -29,5 +32,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(authRoutes);
 app.use(postsRoutes);
 app.use(usersRoutes);
+
+app.use(notFound);
+app.use(errorHandler);
 
 export default app;
