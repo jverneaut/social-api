@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import app from '../app';
 
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true }).then(() => {
-  const port = process.env.PORT || 4000;
+  const port = process.env.PORT || 5000;
   app.listen(port, () => {
     console.log(`App listening on port ${port}`);
   });
