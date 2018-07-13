@@ -1,8 +1,7 @@
 import express from 'express';
 
-import usersControllers from '../controllers/users';
-
 import requireLogin from '../middlewares/requireLogin';
+import usersControllers from '../controllers/users';
 
 const Router = express.Router();
 
