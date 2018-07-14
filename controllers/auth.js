@@ -10,10 +10,14 @@ exports.signup = asyncHandler(async (req, res, next) => {
     return next(Boom.badData('missing email or password'));
   }
 
-  const newUser = new User({ email, password });
-  await newUser.save();
-  req.session.userId = newUser._id;
-  return res.json(newUser);
+  try {
+    const newUser = new User({ email, password });
+    await newUser.save();
+    req.session.userId = newUser._id;
+    return res.json(newUser);
+  } catch (err) {
+    return next(Boom.conflict('email already taken'));
+  }
 });
 
 exports.login = asyncHandler(async (req, res, next) => {
