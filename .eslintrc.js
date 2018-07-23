@@ -5,6 +5,7 @@ module.exports = {
     "no-underscore-dangle": ["error", { "allow": ["_id"] }]
   },
   "env": {
+    "node": true,
     "mocha": true
   }
 };
