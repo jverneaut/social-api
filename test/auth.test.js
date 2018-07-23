@@ -26,7 +26,7 @@ describe('User authentication', () => {
       .post('/auth/login')
       .send({ email: 'johndoe@gmail.com', password: 'wrong password' })
       .end((err, res) => {
-        expect(res.body.statusCode).to.equal(401);
+        expect(res.status).to.equal(401);
         done();
       });
   });
@@ -64,7 +64,7 @@ describe('User authentication', () => {
     agent
       .get('/users')
       .end((err, res) => {
-        expect(res.body.statusCode).to.equal(401);
+        expect(res.status).to.equal(401);
         done();
       });
   });
