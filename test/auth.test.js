@@ -21,6 +21,16 @@ describe('User authentication', () => {
       });
   });
 
+  it('should fail login if wrong password', (done) => {
+    agent
+      .post('/auth/login')
+      .send({ email: 'johndoe@gmail.com', password: 'wrong password' })
+      .end((err, res) => {
+        expect(res.body.statusCode).to.equal(401);
+        done();
+      });
+  });
+
   it('should log user and set session cookie', (done) => {
     agent
       .post('/auth/login')
