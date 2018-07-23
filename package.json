@@ -20,9 +20,12 @@
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^13.0.0",
     "eslint-plugin-import": "^2.13.0",
+    "mocha": "^5.2.0",
     "nodemon": "^1.18.1"
   },
   "scripts": {
-    "start": "nodemon bin/www --exec babel-node --presets es2015"
+    "start": "nodemon bin/www --exec babel-node --presets es2015",
+    "test": "mocha --require babel-core/register",
+    "test:watch": "nodemon --exec 'npm run test'"
   }
 }
