@@ -16,7 +16,8 @@ const MongoStore = require('connect-mongo')(session);
 
 const app = express();
 
-app.use(morgan('dev'));
+if (process.env.NODE_ENV !== 'test') app.use(morgan('dev'));
+
 app.use(session({
   secret: process.env.SESSION_SECRET,
   name: 'sessionId',
@@ -26,6 +27,7 @@ app.use(session({
   cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 },
 
 }));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
