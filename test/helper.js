@@ -6,7 +6,3 @@ before((done) => {
     .once('open', () => done())
     .on('error', err => console.warn(err));
 });
-
-beforeEach((done) => {
-  mongoose.connection.collections.users.drop(() => done());
-});
