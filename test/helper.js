@@ -1,14 +1,15 @@
 import mongoose from 'mongoose';
 
-require('dotenv').config();
-
-mongoose.Promise = global.Promise;
+import app from '../app';
 
 before((done) => {
-  mongoose.connect(process.env.MONGO_TEST_URI, { useNewUrlParser: true });
-  mongoose.connection
-    .once('open', () => done())
-    .on('error', err => console.warn('Warning', err));
+  mongoose.connect(process.env.MONGO_TEST_URI, { useNewUrlParser: true }).then(() => {
+    const port = process.env.PORT || 5000;
+    app.listen(port, () => {
+      console.log(`App listening on port ${port}`);
+      done();
+    });
+  });
 });
 
 beforeEach((done) => {
