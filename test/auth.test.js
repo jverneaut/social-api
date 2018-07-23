@@ -16,6 +16,7 @@ describe('User authentication', () => {
       .post('/auth/signup')
       .send({ email: 'johndoe@gmail.com', password: '1234' })
       .end((err, res) => {
+        expect(res.status).to.equal(200);
         done();
       });
   });
@@ -25,6 +26,7 @@ describe('User authentication', () => {
       .post('/auth/login')
       .send({ email: 'johndoe@gmail.com', password: '1234' })
       .end((err, res) => {
+        expect(res.status).to.equal(200);
         done();
       });
   });
