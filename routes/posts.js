@@ -9,4 +9,6 @@ Router.route('/posts')
   .get(requireLogin, postsControllers.findAll)
   .post(requireLogin, postsControllers.createOne);
 
+Router.get('/posts/:postId', requireLogin, postsControllers.findOne);
+
 export default Router;
