@@ -28,8 +28,6 @@ const userSchema = new Schema({
   ],
 });
 
-userSchema.index({ email: 1 }, { unique: true });
-
 // eslint-disable-next-line
 userSchema.pre('save', async function (next) {
   try {
