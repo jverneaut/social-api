@@ -83,6 +83,22 @@ describe('Get and create posts', () => {
     });
   });
 
+  it('should not create post if missing field', (done) => {
+    createUser(dummyUser).end((err1, res1) => {
+      expect(res1.status).to.equal(200);
+      loginUser(dummyUser).end((err2, res2) => {
+        expect(res2.status).to.equal(200);
+        userAgent
+          .post('/posts')
+          .send({ body: dummyPost.body })
+          .end((err3, res3) => {
+            expect(res3.status).to.equal(422);
+            done();
+          });
+      });
+    });
+  });
+
   it('should get created post by id', (done) => {
     createUser(dummyUser).end((err1, res1) => {
       expect(res1.status).to.equal(200);
