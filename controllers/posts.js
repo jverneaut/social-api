@@ -26,5 +26,5 @@ exports.createOne = asyncHandler(async (req, res, next) => {
   if (!user) return next(Boom.unauthorized('user not found'));
 
   await newPost.save();
-  return res.status(201).redirect('/posts');
+  return res.status(201).send(newPost);
 });
