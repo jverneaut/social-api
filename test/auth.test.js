@@ -90,6 +90,26 @@ describe('Create user and login/logout', () => {
     });
   });
 
+  it('should not login if missing field', (done) => {
+    createUser(dummyUser).end((err1, res1) => {
+      expect(res1.status).to.equal(200);
+      loginUser({ email: dummyUser.email }).end((err2, res2) => {
+        expect(res2.status).to.equal(422);
+        done();
+      });
+    });
+  });
+
+  it('should not login if user doesn\'t exist', (done) => {
+    createUser(dummyUser).end((err1, res1) => {
+      expect(res1.status).to.equal(200);
+      loginUser({ email: 'not.the.good.email@gmail.com', password: dummyUser.password }).end((err2, res2) => {
+        expect(res2.status).to.equal(401);
+        done();
+      });
+    });
+  });
+
   it('should not login if wrong password', (done) => {
     createUser(dummyUser).end((err1, res1) => {
       expect(res1.status).to.equal(200);
