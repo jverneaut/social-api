@@ -10,8 +10,6 @@ import usersRoutes from './routes/users';
 import notFound from './middlewares/notFound';
 import errorHandler from './middlewares/errorHandler';
 
-require('dotenv').config();
-
 const MongoStore = require('connect-mongo')(session);
 
 const app = express();
