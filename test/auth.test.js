@@ -73,6 +73,13 @@ describe('Create user and login/logout', () => {
     });
   });
 
+  it('should not create user if missing field', (done) => {
+    createUser({ email: dummyUser.email }).end((err, res) => {
+      expect(res.status).to.equal(422);
+      done();
+    });
+  });
+
   it('should login created user', (done) => {
     createUser(dummyUser).end((err1, res1) => {
       expect(res1.status).to.equal(200);
