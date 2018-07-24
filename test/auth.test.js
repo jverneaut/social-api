@@ -169,4 +169,13 @@ describe('Create user and login/logout', () => {
       });
     });
   });
+
+  it('should not send error if already logged out', (done) => {
+    userAgent
+      .get('/auth/logout')
+      .end((err, res) => {
+        expect(res.status).to.equal(200);
+        done();
+      });
+  });
 });
