@@ -83,6 +83,21 @@ describe('Create user and login/logout', () => {
     });
   });
 
+  it('should access current_user if logged in', (done) => {
+    createUser(dummyUser).end((err1, res1) => {
+      expect(res1.status).to.equal(200);
+      loginUser(dummyUser).end((err2, res2) => {
+        expect(res2.status).to.equal(200);
+        userAgent
+          .get('/users/current_user')
+          .end((err3, res3) => {
+            expect(res3.status).to.equal(200);
+            done();
+          });
+      });
+    });
+  });
+
   it('should access protected ressources if logged in', (done) => {
     createUser(dummyUser).end((err1, res1) => {
       expect(res1.status).to.equal(200);
