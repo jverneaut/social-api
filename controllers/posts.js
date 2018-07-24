@@ -32,8 +32,12 @@ exports.createOne = asyncHandler(async (req, res, next) => {
     body,
     author: userId,
   });
-  const user = await User.findByIdAndUpdate(userId, { $push: { posts: newPost } });
-  if (!user) return next(Boom.unauthorized('user not found'));
+
+  try {
+    await User.findByIdAndUpdate(userId, { $push: { posts: newPost } });
+  } catch (err) {
+    return next(Boom.unauthorized('user not found'));
+  }
 
   await newPost.save();
   return res.status(201).send(newPost);

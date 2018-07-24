@@ -6,10 +6,12 @@ import asyncHandler from '../middlewares/asyncHandler';
 
 exports.getCurrentUser = asyncHandler(async (req, res, next) => {
   const { userId } = req.session;
-  const user = await User.findById(userId);
-  if (!user) return next(Boom.unauthorized('user not found'));
-
-  return res.status(200).json(user);
+  try {
+    const user = await User.findById(userId);
+    return res.status(200).json(user);
+  } catch (err) {
+    return next(Boom.unauthorized('user not found'));
+  }
 });
 
 exports.findAll = asyncHandler(async (req, res) => {
