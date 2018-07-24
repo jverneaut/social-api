@@ -21,6 +21,16 @@ describe('User authentication', () => {
       });
   });
 
+  it('should fail user creation if email already used', (done) => {
+    agent
+      .post('/auth/signup')
+      .send({ email: 'johndoe@gmail.com', password: '1234' })
+      .end((err, res) => {
+        expect(res.status).to.equal(409);
+        done();
+      });
+  });
+
   it('should fail login if wrong password', (done) => {
     agent
       .post('/auth/login')
@@ -51,6 +61,16 @@ describe('User authentication', () => {
       });
   });
 
+  it('should show current user once logged in', (done) => {
+    agent
+      .get('/users/current_user')
+      .end((err, res) => {
+        expect(res.status).to.equal(200);
+        expect(res.body).to.be.an('object');
+        done();
+      });
+  });
+
   it('should log out user', (done) => {
     agent
       .get('/auth/logout')
@@ -63,6 +83,15 @@ describe('User authentication', () => {
   it('should forbid access to users once logged out', (done) => {
     agent
       .get('/users')
+      .end((err, res) => {
+        expect(res.status).to.equal(401);
+        done();
+      });
+  });
+
+  it('should forbid access to current user once logged out', (done) => {
+    agent
+      .get('/users/current_user')
       .end((err, res) => {
         expect(res.status).to.equal(401);
         done();
