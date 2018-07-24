@@ -83,6 +83,16 @@ describe('Create user and login/logout', () => {
     });
   });
 
+  it('should not login if wrong password', (done) => {
+    createUser(dummyUser).end((err1, res1) => {
+      expect(res1.status).to.equal(200);
+      loginUser({ email: dummyUser.email, password: 'wrong password' }).end((err2, res2) => {
+        expect(res2.status).to.equal(401);
+        done();
+      });
+    });
+  });
+
   it('should access current_user if logged in', (done) => {
     createUser(dummyUser).end((err1, res1) => {
       expect(res1.status).to.equal(200);
