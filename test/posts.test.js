@@ -39,12 +39,20 @@ describe('Get and create posts', () => {
   });
 
   beforeEach((done) => {
+    mongoose.connection.collections.posts.drop(() => done());
+  });
+
+  beforeEach((done) => {
     mongoose.connection.collections.users.ensureIndex({ email: 1 }, { unique: true });
     done();
   });
 
   afterEach((done) => {
     mongoose.connection.collections.users.drop(() => done());
+  });
+
+  afterEach((done) => {
+    mongoose.connection.collections.posts.drop(() => done());
   });
 
   afterEach((done) => {
